@@ -101,7 +101,7 @@ calculate_aspect_ratio: <boolean>
             {% endif %}
             style="{{ image_background_color }}{{ height_style }} {% unless stretch_width == true or object_fit %}max-width: {{ image.width }}px;{% endunless %}">
   <img  alt="{{ alt | escape }}"
-        class="lazyloaded lazy2 {{ additional_classes }}"
+        class="lazyloaded lazy2 lazy3 {{ additional_classes }}"
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
         data-srcset="{{ image | img_url: '1512x' }} 1536w,{{ image | img_url: '1200x' }} 1280w,{{ image | img_url: '720x' }} 768w,{{ image | img_url: '360x'}} 320w"
         data-sizes="auto"

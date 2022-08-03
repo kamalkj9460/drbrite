@@ -4,21 +4,14 @@
 <div id="loader"></div>
 <div id="myModal" class="modal-custom"> <div class="modal-content-custom"> <div id="purchase_limit_messages"></div><span class="close-custom">&times;</span> </div></div>
 
-<script type="text/javascript">  
-  
+<script type="lazyload2">  
 var template = "{{ template.name }}";
-
 var customer_id = "{{ customer.id }}";
-  
-function myJQueryCode() {
-  	
-	  var modal = document.getElementById("myModal"),
-    span = document.getElementsByClassName("close-custom")[0];
-  
-    function checkLimit(e,click = false) {
-       
-      e.customer_id = customer_id;
-       
+      function myJQueryCode() {
+      var modal = document.getElementById("myModal"),
+      span = document.getElementsByClassName("close-custom")[0];
+      function checkLimit(e,click = false) {
+        e.customer_id = customer_id;
        $.ajax({
           type: "POST",
           url: "/a/cart-update",
@@ -35,11 +28,11 @@ function myJQueryCode() {
               }
               document.getElementById("loader").style.display = "none"
           }
-      	});
+        });
       }
-  
-  if(template == 'cart'){
-  
+      
+      if(template == 'cart'){
+      
       jQuery.getJSON("/cart.js", function(e) {
           checkLimit(e)
       }), span.onclick = function() {
@@ -47,24 +40,24 @@ function myJQueryCode() {
       }, window.onclick = function(e) {
           e.target == modal && (modal.style.display = "none")
       };
-  }
-  
+      }
+      
       jQuery(document).on("click","button[name='checkout']",function(e){
         document.getElementById("loader").style.display = "block";
         e.preventDefault();
         e.stopImmediatePropagation();
         jQuery.getJSON("/cart.js", function(cartItems) {
-          	checkLimit(cartItems,true);
-      	});
+            checkLimit(cartItems,true);
+        });
       });
-  	
-  	  jQuery(document).on("click","input[name='checkout']",function(e){
+      
+      jQuery(document).on("click","input[name='checkout']",function(e){
         document.getElementById("loader").style.display = "block";
         e.preventDefault();
         e.stopImmediatePropagation();
         jQuery.getJSON("/cart.js", function(cartItems) {
-          	checkLimit(cartItems,true);
-      	});
+            checkLimit(cartItems,true);
+        });
       });
       
       jQuery(document).on("click",span,function(e){
@@ -76,18 +69,18 @@ function myJQueryCode() {
           e.preventDefault();
           e.stopImmediatePropagation();
           jQuery.getJSON("/cart.js", function(cartItems) {
-            	checkLimit(cartItems,true);
-        	});
+                checkLimit(cartItems,true);
+            });
       });
-}
-if(typeof jQuery=='undefined') {
-    var headTag = document.getElementsByTagName("head")[0];
-    var jqTag = document.createElement('script');
-    jqTag.type = 'text/javascript';
-    jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
-    jqTag.onload = myJQueryCode;
-    headTag.appendChild(jqTag);
-} else {
-     myJQueryCode();
-}
+      }
+      if(typeof jQuery=='undefined') {
+      var headTag = document.getElementsByTagName("head")[0];
+      var jqTag = document.createElement('script');
+      jqTag.type = 'text/javascript';
+      jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
+      jqTag.onload = myJQueryCode;
+      headTag.appendChild(jqTag);
+      } else {
+      myJQueryCode();
+      }
 </script>

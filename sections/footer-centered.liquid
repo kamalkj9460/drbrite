@@ -46,7 +46,7 @@
             {% comment %} Logo {% endcomment %}
             <a class="footer__logo-wrapper is-{{ block.settings.size }}" href="{{ routes.root_url }}" title="{{ shop.name }}">
               {% if block.settings.logo %}
-                  {% render 'image-element',
+                  {% render 'image-element-2',
                           image: block.settings.logo,
                           alt: block.settings.logo.alt,
                           additional_classes: 'footer__logo'
