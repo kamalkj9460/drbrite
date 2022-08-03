@@ -98,7 +98,7 @@
               <h1 class="visuallyhidden">{{ shop.name }}</h1>
             {% endif %}
             <a class="header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-              {% render 'image-element-3',
+              {% render 'image-element',
                       image: block.settings.logo,
                       alt: block.settings.logo.alt,
                       back_to_basics: true

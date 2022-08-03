@@ -59,7 +59,7 @@
               <div class="card-image blog-card__image">
                 <figure class="image">
                   <a class="blog-card__link" href="{{ article.url }}" title="{{ article.title | escape }}">
-                    {% render 'image-element-2',
+                    {% render 'image-element',
                             image: article.image,
                             alt: article.image.alt,
                             additional_classes: 'blog-card__image'

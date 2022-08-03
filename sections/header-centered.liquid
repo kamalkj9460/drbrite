@@ -126,7 +126,7 @@
                 {% endif %}
                 <div class="overlay-logo__content">
                   <a class="header__logo header__link overlay-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-                    {% render 'image-element-3',
+                    {% render 'image-element',
                             image: section.settings.overlay_logo,
                             alt: section.settings.overlay_logo.alt,
                             additional_classes: 'overlay-logo',
@@ -137,7 +137,7 @@
                 <div class="logo__content">
                   {% if section.settings.logo != blank %}
                     <a class="header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-                      {% render 'image-element-3',
+                      {% render 'image-element',
                               image: section.settings.logo,
                               alt: section.settings.logo.alt,
                               additional_classes: 'primary-logo'
@@ -150,7 +150,7 @@
                   <h1 class="visuallyhidden">{{ shop.name }}</h1>
                 {% endif %}
                 <a class="header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-                  {% render 'image-element-3',
+                  {% render 'image-element',
                           image: section.settings.logo,
                           alt: section.settings.logo.alt,
                           additional_classes: 'primary-logo'

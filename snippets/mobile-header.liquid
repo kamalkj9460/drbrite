@@ -51,7 +51,7 @@
     <div class="mobile-logo">
       {% if settings.logo_mobile != blank %}
         <a class="mobile-header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-          {% render 'image-element-3',
+          {% render 'image-element',
                   image: settings.logo_mobile,
                   alt: settings.logo_mobile.alt,
                   additional_classes: 'primary-logo'
@@ -59,7 +59,7 @@
         </a>
       {% elsif section.settings.logo != blank %}
         <a class="mobile-header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-          {% render 'image-element-3',
+          {% render 'image-element',
                   image: section.settings.logo,
                   alt: section.settings.logo.alt,
                   additional_classes: 'primary-logo'
@@ -114,7 +114,7 @@
     <div class="mobile-logo__outer">
       {% if settings.logo_mobile != blank %}
         <a class="mobile-header__logo header__link primary-logo" href="{{ routes.root_url }}" title="{{ shop.name }}">
-          {% render 'image-element-3',
+          {% render 'image-element',
                   image: settings.logo_mobile,
                   alt: settings.logo_mobile.alt,
                   additional_classes: 'primary-logo'

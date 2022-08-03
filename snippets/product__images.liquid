@@ -99,7 +99,7 @@ enable_product_lightbox: <boolean>
 
               <div class="image__container" style="max-width: {{ media.width }}px">
                 <img id="{{ media.id }}"
-                class="lazyloaded lazy2 lazy3"
+                class="lazyload lazyload--fade-in"
                 alt="{{ media.alt | escape }}"
                 data-zoom-src="{{ image_5000x }}"
                 data-image-id="{{ product.media[forloop.index0].id }}"
@@ -115,6 +115,7 @@ enable_product_lightbox: <boolean>
                 data-aspectratio="{{ media.width }}/{{ media.height }}"
                 height="{{ media.height }}"
                 width="{{ media.width }}"
+                srcset="data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='{{ media.width }}'%20height='{{ media.height }}'></svg>"
                 >
               </div>
 

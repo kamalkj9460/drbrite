@@ -83,7 +83,7 @@
             {% endif %}
 
             {% comment %} Primary image {% endcomment %}
-            {% render 'image-element-2',
+            {% render 'image-element',
                     image: product.featured_media.preview_image,
                     alt: alt_text,
                     object_fit: align_height,
@@ -100,10 +100,10 @@
                 </div>
               {% elsif product.media[1].media_type == 'video' %}
                 <div class="product-thumbnail__video secondary swap--visible video-on-hover" data-html5-video>
-                  {{ product.media[1] | video_tag: controls: false | replace: 'preload="metadata"', 'preload="none"' | replace: " poster=", " data-poster=" | replace: "<img src", "<img class='lazy2' data-src" }}
+                  {{ product.media[1] | video_tag: controls: false }}
                 </div>
               {% else %}
-                {% render 'image-element-2',
+                {% render 'image-element',
                         image: product.media[1],
                         alt: alt_text,
                         object_fit: align_height,

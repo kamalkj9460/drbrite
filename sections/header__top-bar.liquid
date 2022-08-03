@@ -62,10 +62,9 @@
   }
 {%- endcapture -%}
 
-<style type="lazyload2">
-  {{ section.settings.font | font_face }}
-</style>
 {% style %}
+  {{ section.settings.font | font_face }}
+
   #shopify-section-{{ id }} {
     background-color: {%- if background_alpha != 0 -%}{{ background }}{%- endif -%};
     {% if width == 'wide' %}

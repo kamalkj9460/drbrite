@@ -54,11 +54,10 @@
   }
 {%- endcapture -%}
 
-<style type="lazyload2">
+{% style %}
   {{ heading_font | font_face }}
   {{ text_font | font_face }}
-</style>
-{% style %}
+
   #shopify-section-{{ object.id }} {
     padding-top: {{ object.settings.padding_top }}px;
     padding-bottom: {{ object.settings.padding_bottom }}px;
