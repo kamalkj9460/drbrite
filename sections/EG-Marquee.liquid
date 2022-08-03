@@ -1,0 +1,278 @@
+{% comment %} 
+    Marquee text
+    © 2021 EcomGraduates
+    https://wwww.ecomgraduates.com 
+{% endcomment %}
+
+<style>
+    /*
+        General styles
+    */
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .text-nowrap {
+        white-space: nowrap;
+    }
+
+    /*
+        Section styling
+    */
+    .eg-marquee-text {
+        overflow: hidden
+    }
+    
+    .eg-marquee-text .marquee-item {
+        width: fit-content;
+        display: flex;
+        position: relative;
+        transform: translateZ(0);
+        animation: marquee_item_animation 5s linear infinite;
+    }
+    
+    .eg-marquee-text .marquee-item:hover {
+        animation-play-state: paused;
+    }
+    
+    .eg-marquee-text a {
+        display: block;
+        text-decoration: none;
+        transition: all .2s ease-out;
+    }
+    
+    .eg-marquee-text a:hover {
+        opacity: .75;
+    }
+    
+    @keyframes marquee_item_animation {
+        0% { transform: translateZ(0) }
+        to { transform: translate3d(-5%, 0,0) }
+    }
+    
+    @media (prefers-reduced-motion:reduce) {
+        .marquee .marquee-item {
+            animation: none
+        }
+    }
+
+    /*
+        Styles based on settings
+    */
+    #eg-marquee-text-{{ section.id }} {
+        {% unless section.settings.bg_color == 'rgba(0,0,0,0)' %}
+            background-color: {{ section.settings.bg_color }};
+        {% endunless %}
+        {% unless section.settings.color == 'rgba(0,0,0,0)' %}
+            color: {{ section.settings.color }};
+        {% endunless %}
+        padding-top: {{ section.settings.pt }}rem;
+        padding-bottom: {{ section.settings.pb }}rem;
+        margin-top: {{ section.settings.mt }}rem;
+        margin-bottom: {{ section.settings.mb }}rem;
+    }
+
+    #eg-marquee-text-{{ section.id }} .marquee-item > span {
+        margin-left: {{ section.settings.gap }}px;
+        margin-right: {{ section.settings.gap }}px;
+    }
+
+    #eg-marquee-text-{{ section.id }} a {
+        {% unless section.settings.color == 'rgba(0,0,0,0)' %}
+            color: {{ section.settings.color }};
+        {% endunless %}
+    }
+
+    #eg-marquee-text-{{ section.id }} .text-sm {
+        font-size: .8em;
+    }
+
+    #eg-marquee-text-{{ section.id }} .text-lg {
+        font-size: 1.2em;
+    }
+
+    #eg-marquee-text-{{ section.id }} .fw-bold {
+        font-weight: bold;
+    }
+
+    #eg-marquee-text-{{ section.id }} .text-uppercase {
+        text-transform: uppercase;
+    }
+
+    #eg-marquee-text-{{ section.id }} .text-capitalize {
+        text-transform: capitalize;
+    }
+
+    /* Dummy code to fix editor styling */
+    {}
+</style>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+    })
+</script>
+
+<section 
+    id="eg-marquee-text-{{ section.id }}" 
+    class="eg-marquee-text">
+    {% unless section.settings.url == blank %}
+        <a href="{{ section.settings.url }}">
+    {% endunless %}
+        <div 
+            class="marquee-item {{ section.settings.text_size }} {{ section.settings.text_weight }} {{ section.settings.text_transform }}"
+            style="animation-duration: {{ section.settings.animation_duration }}s">
+            {% for x in (1..20) %}
+                <span 
+                    class="text-nowrap"
+                    aria-hidden="{% if forloop.index > 1 %}true{% endif %}">
+                    {{ section.settings.text }}
+                </span>
+            {% endfor %}
+        </div>
+    {% unless section.settings.url == blank %}
+        </a>
+    {% endunless %}
+</section>
+
+{% schema %}
+{
+    "name": "EG - Marquee text",
+    "settings": [
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Write Something Important Here!"
+        },
+        {
+            "type": "header",
+            "content": "General"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background color"
+        },
+        {
+            "type": "color",
+            "id": "color",
+            "label": "Text color"
+        },
+        {
+            "type": "select",
+            "id": "text_size",
+            "label": "Text size",
+            "default": "",
+            "options": [
+                { "value": "text-sm", "label": "Small" },
+                { "value": "", "label": "Default" },
+                { "value": "text-lg", "label": "Large" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text_weight",
+            "label": "Font weight",
+            "default": "",
+            "options": [
+                { "value": "", "label": "Normal" },
+                { "value": "fw-bold", "label": "Bold" }
+            ]
+        },
+        {
+            "type": "select",
+            "id": "text_transform",
+            "label": "Text transform",
+            "default": "",
+            "options": [
+                { "value": "", "label": "Normal" },
+                { "value": "text-uppercase", "label": "Uppercase" },
+                { "value": "text-capitalize", "label": "Capitalize" }
+            ]
+        },
+        {
+            "type": "url",
+            "id": "url",
+            "label": "URL",
+            "info": "Optional link"
+        },
+        {
+            "type": "header",
+            "content": "Effect"
+        },
+        {
+            "type": "range",
+            "id": "animation_duration",
+            "label": "Animation duration",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 5,
+            "unit": "sec"
+        },
+        {
+            "type": "header",
+            "content": "Gap",
+            "info": "Based on 'rem' values [Learn more](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)"
+        },
+        {
+            "type": "range",
+            "id": "gap",
+            "label": "Gap",
+            "info": "Between repeated text",
+            "min": 0,
+            "max": 20,
+            "step": 1,
+            "default": 12
+        },
+        {
+            "type": "header",
+            "content": "Spacing",
+            "info": "Based on 'rem' values [Learn more](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)"
+        },
+        {
+            "type": "range",
+            "id": "pt",
+            "label": "Padding top",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "pb",
+            "label": "Padding bottom",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "mt",
+            "label": "Margin top",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "mb",
+            "label": "Margin bottom",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "default": 0
+        }
+    ],
+    "presets": [
+        {
+            "name": "EG - Marquee text",
+            "category": "Text"
+        }
+    ]
+}
+{% endschema %}

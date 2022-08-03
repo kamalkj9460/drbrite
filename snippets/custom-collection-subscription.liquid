@@ -1,0 +1,49 @@
+{% style %}
+
+{% endstyle %}
+
+{% assign subscription_product = product.metafields.subscriptions %}
+{% assign product_tags = product.tags | remove: ' ' | downcase %}
+{% if subscription_product.is_subscription_only == 'true' or product_tags contains 'subscriptiononly' %}
+    {% assign subscription_only = true %}
+{% else %}
+    {% assign subscription_only = false %}
+{% endif %}
+
+{% comment %}Widget settings{% endcomment %}
+{% assign widget_settings = shop.metafields.subscriptions %}
+{% if widget_settings.subscription_active == 'true' %}
+    {% assign subscription_active = true %}
+{% else %}
+    {% assign subscription_active = false %}
+{% endif %}
+
+{% comment %}Product settings{% endcomment %}
+{% unless subscription_only %}
+{% assign variant_map = subscription_product.original_to_hidden_variant_map | default: false %}
+{% if variant_map %}
+		{% capture variant_to_duplicate %}{ {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{{ variant[0] }}:'{{ variant[1]['discount_variant_id'] }}',{% endif %}{% endfor %} }{% endcapture %}
+		{% capture variant_to_price %}{ {% for variant in product.variants %}{{ variant.id }}:'{{ variant.price }}',{% endfor %} }{% endcapture %}
+		{% capture duplicate_to_price %}{ {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{{ variant[1]['discount_variant_id'] }}:'{{ variant[1]['discount_variant_price'] | replace: ".", "" }}',{% endif %}{% endfor %} }{% endcapture %}
+{% endif %}
+{% endunless %}
+
+{% comment %}Discount settings{% endcomment %}
+{% assign discount_percentage = subscription_product.discount_percentage | round: 2 %}
+{% assign discount_floor = subscription_product.discount_percentage | floor %}
+{% if discount_percentage == discount_floor %}
+    {% assign discount_percentage = discount_floor %}
+{% endif %}
+
+{% if subscription_active %}
+{% for variant in product.variants %}
+ {% if forloop.first == true %}
+ {% assign product_price = variant.metafields.subscriptions.discount_variant_price | replace: ".", "" %}
+ {% endif %}
+{% endfor %}
+{% else %}
+{% endif %}
+
+<span class="price ck_subscription_price" >{{ product_price | money }}</span>
+
+

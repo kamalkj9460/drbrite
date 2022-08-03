@@ -1,0 +1,583 @@
+.bb-hidden{
+ display:none !important;
+}
+.bbPage_main_wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.bbPage_products_wrapper {
+    width: 60%;
+    padding-right: 40px;
+}
+
+.bbPage_bundle_wrapper {
+    width: 40%;
+    padding-left: 40px;
+}
+
+.bbPage_head {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    width: 100%;
+    border-bottom: solid 1px #e5e3d6;
+}
+
+.buildBundlePage {
+    margin-top: 40px;
+}
+
+.bbProduct_item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.bbProduct_image {
+    width: 33%;
+}
+
+.bbProduct_content {
+    width: 67%;
+    padding-left: 20px;
+}
+  
+  .bbProduct_rating {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    margin: 4px 0;
+}
+
+.bbProduct_rating img {
+    width: 91px;
+    margin-right: 8px;
+}
+  
+  .bbProduct_action {
+    margin-top: 30px;
+}
+
+.bbProduct_addtobundle {
+    color: #fff;
+    background-color: #f46f63;
+    border: none;
+    outline: 0;
+    padding: 15px 20px;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: all .2s linear;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.bbProduct_addtobundle:hover,
+.bbProduct_addtobundle:focus{
+    color: #fff;
+    background-color: #f46f63;
+  } 
+  
+  .bbPage_your_bundle {
+    position: sticky;
+    top: 125px;
+    margin: 0 0 50px 0;
+    padding: 20px;
+    border: solid 1px #e5e3d6;
+    border-radius: 5px;
+    box-shadow: 0 2px 7px rgb(0 0 0 / 5%);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: column nowrap;
+    -moz-flex-flow: column nowrap;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    -moz-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    height: 80vh;
+    max-height: 100%;
+}
+
+.yb_head {
+    margin: 0 0 20px 0;
+    padding: 0 0 10px 0;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #e5e3d6;
+}
+
+.yb_product_item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -moz-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    -moz-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    position: relative;
+    padding: 10px 0;
+}
+
+.yb_product_image {
+    width: 80px;
+}
+
+.yb_product_title {
+    display: inline-block;
+    padding: 0 30px 0 20px;
+    line-height: 1.4;
+}
+
+.yb_product_title h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+a.yb_product_remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 2px solid #f46f63;
+    text-align: center;
+    line-height: 24px;
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #f46f63;
+    display:none;
+}
+  
+.bb_product_remove{
+ display:block !important; 
+}
+  
+.subscribe_box_with_check {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f9f8f3;
+    border: solid 1px #e5e3d6;
+    border-radius: 5px;
+}
+
+.checkbox_design {
+    margin-bottom: 5px;
+}
+
+ul.subscription_details {
+    margin: 5px 0 0 0;
+    padding: 0 0 0 7px;
+    list-style: circle inside;
+}
+
+select.subscription_select {
+    background: #fff url(//cdn.shopify.com/s/files/1/2364/6329/t/70/assets/select_arrow.png?v=1156868…) no-repeat right center;
+    background-image: url(//cdn.shopify.com/s/files/1/2364/6329/t/70/assets/select_arrow.svg?v=1538760…),none;
+    background-size: 34px 12px;
+    cursor: pointer;
+    -webkit-padding-end: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    margin: 8px 0 0 0;
+    padding: 12px 15px;
+    font-size: 14px;
+    border: solid 2px #e5e3d6;
+    width: 100%;
+}
+
+.subscription_details li {
+    font-size: 12px !important;
+}
+  .subscription_total {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -moz-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.subscription_action a {
+    color: #fff;
+    background-color: #f46f63;
+    border: none;
+    outline: 0;
+    padding: 15px 20px;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: all .2s linear;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+  .subscription_action a:hover,
+  .subscription_action a:focus{
+    background-color:#f46f63;
+    color: #fff;
+  } 
+
+.sub_price {
+    font-weight: 600;
+}
+
+.sub_count {
+    font-weight: 600;
+}
+  
+.checkbox_design label input[type=checkbox] {
+    position: relative;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    padding: 0;
+    width: 18px;
+    height: 18px;
+    outline: 0;
+    color: #fff;
+    background: #fff;
+    border: solid 2px #e5e3d6;
+    border-radius: 3px;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    pointer-events: none;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -ms-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+}
+
+.checkbox_design label input[type=checkbox]:checked {
+    background: #f46f63;
+    border: solid 2px #f46f63;
+}
+  
+.checkbox_design label input[type=checkbox]:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1px;
+    margin: auto;
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 10px;
+    width: 6px;
+    border-bottom: 2px solid #ffffff;
+    border-right: 2px solid #ffffff;
+    opacity: 0;
+}
+.checkbox_design label input[type=checkbox]:checked:before {
+     opacity: 1;
+}
+  .checkbox_design label {
+    font-weight: 600;
+}
+
+.checkbox_design label span {
+    font-weight: 400;
+}
+
+.checkbox_design label span span {
+    font-weight: 600;
+}
+  
+.yb_products {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 100%;
+    overflow: auto;
+}
+  
+  .bbProduct_addtobundle_qty_action {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -moz-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-align-content: center;
+    -moz-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    border: solid 1px #f46f63;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.bbProduct_addtobundle_qty_action button {
+    display: block;
+    width: 60px;
+    height: 53px;
+    background: #f46f63;
+    border: 0;
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+    line-height: 30px;
+}
+.bbProduct_addtobundle_qty_action label {
+    width: 100%;
+    padding: 0 15px;
+    text-align: center;
+}
+  .bbProduct_addtobundle_soldOut {
+    color: #cccccc;
+    border: 1px solid #cccccc;
+    outline: 0;
+    padding: 15px 20px;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    text-align: center;
+    text-shadow: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    transition: all .2s linear;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smoothing: antialiased;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 5px;
+    pointer-events: none;
+}
+.bb-btn-deactive{
+  color: #8e8a83 !important;
+  background-color: #fff !important;
+  border: solid 2px #e5e3d6 !important;
+  pointer-events: none;
+  opacity: .5;
+}
+
+
+h1.bbPage_title {
+    margin-bottom: 15px;
+}
+  
+
+
+@media (max-width: 1024px) {
+  div#bb_bundle_line_item_loop {
+    flex: inherit;
+}
+  
+  
+  .bbPage_products_wrapper .bbPage_products {
+    padding-bottom: 150px;
+}
+  
+  
+  .bbPage_main_wrapper {
+    align-items: flex-start;
+     -webkit-align-items: flex-start;
+    -ms-align-items: flex-start;
+
+  }
+  
+  
+  .bbPage_your_bundle {
+     height: auto; 
+  }
+  
+  .page-build_a_bundle .one-whole {
+    width: calc(100% - 70px);
+}
+  
+  
+  .checkbox_design label {
+    
+  }
+  
+}
+
+
+@media (max-width: 767px) {
+  
+  .bbPage_main_wrapper {
+    display: block;
+}
+
+ .bbPage_products_wrapper {
+    width: 100%;
+    padding-right: 0;
+} 
+  
+  .bbProduct_item {
+    display: block;
+}
+  
+  
+  .bbProduct_image {
+    width: 100%;
+}
+  
+  .bbProduct_content {
+    width: 100%;
+    padding-left: 0;
+}
+  
+  
+  .buildBundlePage {
+    padding: 0 5px 30px 5px;
+}
+  
+  .bbPage_products_wrapper .bbPage_products {
+    padding-bottom: 0;
+}
+  
+  .bbPage_bundle_wrapper {
+    width: 100%;
+    position: fixed;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto !important;
+    background: white;
+    border: none;
+    border-top: solid 1px #e5e3d6;
+    box-shadow: 0 3px 5px rgb(0 0 0 / 50%);
+    z-index: 100;
+}
+  
+  
+  .yb_product_title {
+    display: none;
+}
+  
+  .yb_product_item {
+    float: left;
+    width: 25%;
+    justify-content: center;
+     -webkit-justify-content: center;
+    -ms-justify-content: center;
+
+}
+  
+  
+
+  
+  .bbPage_your_bundle {
+    height: auto;
+    margin: 0;
+}
+  
+  
+  .yb_product_image {
+    width: 65px;
+}
+  
+  
+  a.yb_product_remove {
+      top: -42px;
+  }
+  
+  .yb_head {
+    display: none;
+}
+  
+}
+
+

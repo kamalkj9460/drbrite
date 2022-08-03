@@ -1,0 +1,252 @@
+<link rel="stylesheet" href="{{ 'build_a_bundle.css' | asset_url }}">
+
+{% comment %}Recharge Widget settings{% endcomment %}
+{% assign widget_settings = shop.metafields.subscriptions %}
+{% if widget_settings.subscription_active == 'true' %}
+    {% assign subscription_active = true %}
+{% else %}
+    {% assign subscription_active = false %}
+{% endif %} 
+
+<script>
+  // product collections
+  var product_items = [
+    {% for product in collection.products %}
+    {% assign imgSrc = product.featured_image.src | img_url: '200x'  | json  %}
+    {% assign collections = product.collections | json %}
+    {% assign price = product.price | format_money | json %}
+    {% assign rawPrice = product.price | json %}
+    {% assign available = product.available | json %}
+    {% assign compare = product.compare_at_price_max | format_money | json %}
+    {% assign rawCompare = product.compare_at_price_max | format_money | json %}
+    {% assign priceVaries = product.price_varies | json %}
+    {% assign priceMin = product.price_min | json %}
+    {% if subscription_active and product.metafields.subscriptions != blank %}
+    {% assign subscription_active = true %}
+    {% assign subscription_details = product.metafields.subscriptions | json %}
+    {% for variant in product.variants %}
+      {% assign variants_container = variants_container | concat: variant.id %}
+    {% endfor %}
+    
+    {% assign variant_map = product.metafields.subscriptions.original_to_hidden_variant_map | default: false %}
+    {% if variant_map %}
+          {% capture variant_to_duplicate %}{ {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{{ variant[0] }}:'{{ variant[1]['discount_variant_id'] }}',{% endif %}{% endfor %} }{% endcapture %}
+		  {% for variant in variant_map %}{% if variant[1]['discount_variant_id'] %}{% assign duplicate_price = variant[1]['discount_variant_price'] | replace: ".", "" %}{% else %} {% assign duplicate_price = 0 %}{% endif %}{% endfor %}
+    {% endif %}
+    {% assign custom_subscription_id = 0 %}
+    {% if variant_to_duplicate %}
+        {% for variant in variant_map %}
+            {% if variant[1]['discount_variant_id'] %}
+                {% assign custom_subscription_id = variant[1]['discount_variant_id'] %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for variant in product.variants %}
+           {% assign custom_subscription_id = variant.metafields.subscriptions.discount_variant_id %}
+        {% endfor %}
+    {% endif %}
+    {% else %}
+    {% assign duplicate_price = 0 %}
+    {% assign subscription_active = false %}
+    {% assign subscription_details = '' %}
+    {% endif %}
+    {
+        "id" : {{ product.id }},
+        "handle": {{ product.handle | json }},
+        "variant_id":{{ product.variants[0].id }},
+        "quantity": 1,
+        "title"    : {{ product.title | json }},
+        "url"      : {{ product.url | json }},
+        "available": {{ available }},
+        "thumbnail": {{ imgSrc }},
+        "price"    : {{ price  }},
+        "compare"  : {{ compare }},
+        "collections": {{ collections }},
+        "raw_price": {{ rawPrice }},
+        "raw_compare": {{ rawCompare }},
+        "price_varies": {{ priceVaries }},
+        "price_min": {{ priceMin }},
+        "variants":{{ product.variants | json }},
+        "subscription_active": {{ subscription_active }},
+        "subscription_details":{{ subscription_details }},
+        "subscription_price": {{ duplicate_price }},
+        "subscription_id": {{ custom_subscription_id }},
+        "properties": {
+           "_ck_variant_id": {{ product.variants[0].id }},
+           "_ck_has_subscription": "true",
+           "_ck_discount_percentage": {{ product.metafields.subscriptions.discount_percentage }},
+           "_ck_subscription_interval_frequency":{{ product.metafields.subscriptions.shipping_interval_frequency | json }},
+           "_ck_subscription_interval_unit_type":{{ product.metafields.subscriptions.shipping_interval_unit_type | json }},
+           "_ck_subscription_id":{{ custom_subscription_id }},
+        },
+    },
+  {% endfor %}
+  ];
+  
+  // collection json data
+  var collection_data = {
+    "id":{{ collection.id }},
+    "handle":{{ collection.handle | json }},
+    "title":{{ collection.title | json }},
+    "description":{{ collection.description | json }},
+    "image":"{{ collection | img_url | prepend : "https:"}}",
+    "products":product_items,
+    "bundle_title":{{ page.title | json }},
+    "bundle_handle":{{ page.handle | json }}
+  }
+ 
+</script>
+
+<input type="hidden" id="bb_collection_handle" value="{{ collection.handle }}">
+<input type="hidden" id="bb_collection_max" value="{{ collection_options }}">
+<input type="hidden" id="bb_cart_count" value="{{ cart.item_count }}">
+<input type="hidden" id="bb_shop_domain" value="{{ shop.permanent_domain }}">
+<input type="hidden" id="bb_page_title" value="{{ page.title }}">
+<div class="buildBundlePage">
+  
+  <div class="bbPage_head">
+	<h1 class="bbPage_title">{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+	<div class="bbPage_description">
+     {{ collection.description }}
+    </div>
+    {% endif %}
+  </div>
+  
+  <div class="bbPage_main_wrapper">
+    
+    <div class="bbPage_products_wrapper">
+      
+      <div class="bbPage_products" >
+       {% for product in collection.products %}
+        
+        <!-- Product Loop Start -->
+        <div class="bbProduct_item" id="bbProduct_{{ product.id }}" data-product-id="{{ product.id }}" data-qty-id="bb_product_qty_{{ product.id }}" data-variant-id="{{ product.variants[0].id }}" >
+          <div class="bbProduct_image">
+          	<img src="{{ product.featured_media.preview_image | img_url: '480x' }}" alt="{{ product.title }}">
+          </div>
+          <div class="bbProduct_content">
+            <h3>{{ product.title }}</h3>
+   
+            {% comment %} Review stars {% endcomment %}
+            <div class="bbProduct_rating">
+            {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
+            </div>
+            
+            {% if product.description != blank %}
+            <div class="bbProduct_description">
+              <p>{{ product.description }}</p>
+            </div>
+            {% endif %}
+            
+            {% if product.selected_or_first_available_variant.available == false %}
+             <div class="bbProduct_action">
+              <a class="bbProduct_addtobundle_soldOut">SOLD OUT</a>
+             </div>
+            {% else %}
+            <div class="bbProduct_action">
+			  <a class="bbProduct_addtobundle addToBundle" data-type="true">ADD IT</a>
+              <input type="hidden" value="0" class="bb_product_qty_input">
+              
+              <div class="bbProduct_addtobundle_qty_action bb-hidden" >
+                <button class="bbProduct_minus removeFromBundle">-</button>
+                <label><span class="bbProduct_qty">1</span> Added</label>
+                <button class="bbProduct_plus addToBundle" data-type="false">+</button>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+       
+        {% endfor %}
+        <!-- Product Loop End -->
+         
+      </div>
+
+    </div>
+
+    <div class="bbPage_bundle_wrapper">
+
+      <div class="bbPage_your_bundle">
+        <div class="yb_head">
+          <h3>Your Bundle</h3>
+        </div>
+        <div class="yb_products" id="bb_bundle_line_item_loop">
+          
+          <!-- Product Loop Start -->
+          <div class="yb_product_item yb_product_placeholder">
+            <div class="yb_product_image">
+            	<img src="{{ 'ProductIcon.png' | asset_url }}">
+            </div>
+            <div class="yb_product_title">
+              <h3>(Add a Product)</h3>
+            </div>
+            <a class="yb_product_remove">x</a>
+          </div>
+          
+          <div class="yb_product_item yb_product_placeholder">
+            <div class="yb_product_image">
+            	<img src="{{ 'ProductIcon.png' | asset_url }}">
+            </div>
+            <div class="yb_product_title">
+              <h3>(Add a Product)</h3>
+            </div>
+            <a class="yb_product_remove">x</a>
+          </div>
+          <div class="yb_product_item yb_product_placeholder">
+            <div class="yb_product_image">
+            	<img src="{{ 'ProductIcon.png' | asset_url }}">
+            </div>
+            <div class="yb_product_title">
+              <h3>(Add a Product)</h3>
+            </div>
+            <a class="yb_product_remove">x</a>
+          </div>
+          <div class="yb_product_item yb_product_placeholder">
+            <div class="yb_product_image">
+            	<img src="{{ 'ProductIcon.png' | asset_url }}">
+            </div>
+            <div class="yb_product_title">
+              <h3>(Add a Product)</h3>
+            </div>
+            <a class="yb_product_remove">x</a>
+          </div>
+          <!-- Product Loop End -->
+          
+        </div>
+        
+        {% render 'subscription-bundle-collection', collection:collection %}
+        
+        <div class="subscription_total" id="bb_subscription">
+          <div class="sub_count">Subtotal (<span class="sub_counter">0</span> item)</div>
+          <div class="sub_price">Free</div>
+          </div>
+          <div class="subscription_action ">
+            <a href="javascript:void(0);" class="bb-btn-deactive">Add to cart</a>
+          </div>
+      </div>
+
+    </div>
+    
+  </div>
+</div>
+
+{% comment %} Notification {% endcomment %}
+<!-- <div class="bb-notification-modal">
+      <div class="bb-notification-dialog alert">
+          <div class="bb-notification-dialog-header">Maximum Dressing & Marinades Reached!</div>
+          <div class="bb-notification-dialog-content">You have added the maximum number of items from the Dressing & Marinade collection to your bundle. Please remove a Dressing & Marinade before adding another.</div>
+          <div class="bb-notification-dialog-actions">
+              <button class="bb-notification-dialog-button button primary" type="button" data-action="confirm" >
+                 Okay
+              </button>
+          </div>
+      </div>
+</div> -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+<script src="{{ 'build_a_bundle_script.js' | asset_url }}" defer></script>
+
+
+
+

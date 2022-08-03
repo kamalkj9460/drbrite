@@ -1,0 +1,93 @@
+<style>
+.modal-custom{display:none;position:fixed;z-index:10000;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}.modal-content-custom{background-color:#fefefe;margin:15% auto;padding:20px;border:1px solid #888;width:80%}.close-custom{color:#aaa;float:right;font-size:28px;font-weight:700;margin-right:-10px;margin-top:-45px}.close-custom:focus,.close-custom:hover{color:#000;text-decoration:none;cursor:pointer}#loader{display:none;position:absolute;left:50%;top:50%;z-index:10000;width:150px;height:150px;margin:-75px 0 0 -75px;border:16px solid #f3f3f3;border-radius:50%;border-top:16px solid #3498db;width:120px;height:120px;-webkit-animation:spin 2s linear infinite;animation:spin 2s linear infinite}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0)}100%{-webkit-transform:rotate(360deg)}}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.animate-bottom{position:relative;-webkit-animation-name:animatebottom;-webkit-animation-duration:1s;animation-name:animatebottom;animation-duration:1s}@-webkit-keyframes animatebottom{from{bottom:-100px;opacity:0}to{bottom:0;opacity:1}}@keyframes animatebottom{from{bottom:-100px;opacity:0}to{bottom:0;opacity:1}}
+</style>
+<div id="loader"></div>
+<div id="myModal" class="modal-custom"> <div class="modal-content-custom"> <div id="purchase_limit_messages"></div><span class="close-custom">&times;</span> </div></div>
+
+<script type="text/javascript">  
+  
+var template = "{{ template.name }}";
+
+var customer_id = "{{ customer.id }}";
+  
+function myJQueryCode() {
+  	
+	  var modal = document.getElementById("myModal"),
+    span = document.getElementsByClassName("close-custom")[0];
+  
+    function checkLimit(e,click = false) {
+       
+      e.customer_id = customer_id;
+       
+       $.ajax({
+          type: "POST",
+          url: "/a/cart-update",
+          dataType: "json",
+          data: e,
+          success: function(e) {
+              if (1 == e.error) {
+                  var t = "<ul>";
+                  $.each(e.messages, function(e, n) {
+                      t += "<li>" + n + "</li>"
+                  }), t += "</ul>", $("#purchase_limit_messages").html(t), document.getElementById("myModal").style.display = "block"
+              } else if(click) {
+                window.location.replace('/checkout');
+              }
+              document.getElementById("loader").style.display = "none"
+          }
+      	});
+      }
+  
+  if(template == 'cart'){
+  
+      jQuery.getJSON("/cart.js", function(e) {
+          checkLimit(e)
+      }), span.onclick = function() {
+          modal.style.display = "none"
+      }, window.onclick = function(e) {
+          e.target == modal && (modal.style.display = "none")
+      };
+  }
+  
+      jQuery(document).on("click","button[name='checkout']",function(e){
+        document.getElementById("loader").style.display = "block";
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        jQuery.getJSON("/cart.js", function(cartItems) {
+          	checkLimit(cartItems,true);
+      	});
+      });
+  	
+  	  jQuery(document).on("click","input[name='checkout']",function(e){
+        document.getElementById("loader").style.display = "block";
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        jQuery.getJSON("/cart.js", function(cartItems) {
+          	checkLimit(cartItems,true);
+      	});
+      });
+      
+      jQuery(document).on("click",span,function(e){
+         modal.style.display = "none";
+      });
+      
+      jQuery(document).on("click","a[href='/checkout']",function(e){
+          document.getElementById("loader").style.display = "block";
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          jQuery.getJSON("/cart.js", function(cartItems) {
+            	checkLimit(cartItems,true);
+        	});
+      });
+}
+if(typeof jQuery=='undefined') {
+    var headTag = document.getElementsByTagName("head")[0];
+    var jqTag = document.createElement('script');
+    jqTag.type = 'text/javascript';
+    jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
+    jqTag.onload = myJQueryCode;
+    headTag.appendChild(jqTag);
+} else {
+     myJQueryCode();
+}
+</script>

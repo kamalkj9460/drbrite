@@ -1,0 +1,68 @@
+{% for product in collection.products %}
+   {% if forloop.first == true %}
+      {% if product.metafields.subscriptions.shipping_interval_frequency %}
+        {% assign shipping_interval_frequency = product.metafields.subscriptions.shipping_interval_frequency | split: ',' | default: 30 %}
+	
+        {% assign discount_percentage = product.metafields.subscriptions.discount_percentage | round: 2 %}
+        {% assign shipping_interval_unit_type = product.metafields.subscriptions.shipping_interval_unit_type %}
+        {% assign label_unit_type_legacy = product.metafields.subscriptions.label_unit_type | default: shipping_interval_unit_type %}
+        {% assign label_unit_type_legacy = product.metafields.subscriptions.label_unit_type | default: shipping_interval_unit_type %}
+      {% endif %}
+  {% endif %}
+{% endfor %}
+
+<div class="subscribe_box_with_check subscription-box">
+  <div class="checkbox_design">            
+    <label>
+      <input type="checkbox" id="subscribeSave" value="false">
+      {% assign dispercentage = discount_percentage | round %}
+      Subscribe & Save {{ dispercentage | default: 30 }}% <span class="rc_hidden sub-save-box">(You save <span style="color:#a1d55d;" class="subscription-save-price">$0.00</span>)</span>
+    </label>
+  </div>
+  <ul class="subscription_details">
+    <li>Join now, and save big on your favorite products!</li>
+    <li>You are always notified before each shipment</li>
+    <li>Switch products, skip, cancel, or pause anytime</li>
+  </ul>
+ 
+  <select class="subscription_select rc_hidden subscription_options">
+    {% if shipping_interval_frequency %}
+    {% for frequency in shipping_interval_frequency %}
+      {% if forloop.first == true %}
+      <option value="{{ frequency }}" selected="selected">Delivery Every {{ frequency }} {{ shipping_interval_unit_type }}</option>
+      {% else %}
+      <option value="{{ frequency }}" >Delivery Every {{ frequency }} {{ shipping_interval_unit_type }}</option>
+      {% endif %}
+    {% endfor %}
+    {% else %}
+    <option value="30" selected="selected">Delivery Every 1 Months</option>
+    <option value="60">Delivery Every 2 Months</option>
+    <option value="90">Delivery Every 3 Months</option>
+    {% endif %}
+  </select>          
+</div>
+
+
+<script>
+  // Bundle Data
+   var bundle_data = {
+     collection_data:collection_data,
+     subtotal:0,
+     final_price:0,
+     bundle_line_items: [],
+     tags:"BUNDLE",
+     subscription:{
+         subscription_id: collection_data.products[0].subscription_details.subscription_id,
+         is_subscription: false,
+         shipping_interval_frequency: [30,60,90],
+         shipping_interval_unit_type:'Days',
+         discount_percentage : {{ discount_percentage | default: 30 }},
+         discount_type : 'percentage',
+         discounted_price: 0,
+         selected_frequency: '',
+     },
+     subscriptionSave: 'false'
+   }
+  
+   
+</script>
