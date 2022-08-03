@@ -138,7 +138,7 @@
       {% endif %}
 
       {% if image != blank %}
-        {% render 'image-element',
+        {% render 'image-element-3',
                 image: image,
                 alt: image.alt,
                 stretch_width: true,
@@ -150,7 +150,7 @@
 
       {% if mobile_image != blank %}
         <div class="is-hidden-desktop-only">
-          {% render 'image-element',
+          {% render 'image-element-3',
                   image: mobile_image,
                   alt: mobile_image.alt,
                   stretch_width: true
